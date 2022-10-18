@@ -10,6 +10,8 @@ const typeDefs = gql`
     login: String
     avatar_url: String
     html_url: String
+    followers_url: String
+    type: String
   }
 
   type Query {
@@ -29,12 +31,10 @@ const resolvers = {
         const users = await axios.get('https://api.github.com/users');
         console.log('users from GitHub', users);
         return users.data.map(
-          ({ id, login, avatar_url, html_url, followers_url }) => ({
+          ({ id, login, avatar_url }) => ({
             id,
             login,
             avatar_url,
-            html_url,
-            followers_url,
           })
         );
       } catch (error) {
